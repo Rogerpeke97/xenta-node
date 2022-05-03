@@ -8,10 +8,13 @@ export const initUserModel = (sequelize: Sequelize) => {
   })
   
   User.sync({force: true}).then(() => {
-    // Table created
     return User.create({
       username: 'John',
       birthday: new Date()
     })
   })
+}
+
+export const initUserModelRelationships = (sequelize: Sequelize) => {
+  sequelize.models.User.hasOne(sequelize.models.Plays, { foreignKey: 'user_id' })
 }

@@ -1,6 +1,6 @@
 import express from 'express'
 import { ExpressApp } from '../main'
-import UserModel from '../models/User'
+import UserModel from '../models/User/User'
 import Logger from '../utils/Logger'
 
 

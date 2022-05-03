@@ -1,6 +1,11 @@
 import { Sequelize } from 'sequelize'
 import ServerConfig from '../utils/ServerConfig'
-import { initUserModel } from './User/User'
+import { initPlaysModel } from './Plays/Plays'
+import { initUserModel, initUserModelRelationships } from './User/User'
+
+const initModelsRelationships = (sequelize: Sequelize) => {
+  initUserModelRelationships(sequelize)
+}
 
 export const InitializeORMAndModels = () => {
   const sequelize = new Sequelize(ServerConfig.DB_NAME, ServerConfig.DB_USER, ServerConfig.DB_PASS, {
@@ -13,17 +18,18 @@ export const InitializeORMAndModels = () => {
       idle: 10000
     }
   })
-  
-  const checkSequelizeConnection = async () => {
+  const isSequelizeConnected = async () => {
     try {
       await sequelize.authenticate()
       console.log('Connection has been established successfully.')
+      return true
     } catch (error) {
       console.error('Unable to connect to the database:', error)
+      return false
     }
   }
-  
-  checkSequelizeConnection()
-
+  if(!isSequelizeConnected()) return
   initUserModel(sequelize)
+  initPlaysModel(sequelize)
+  initModelsRelationships(sequelize)
 }
