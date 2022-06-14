@@ -3,11 +3,11 @@ import { initPlaysModel } from './Plays/Plays'
 import { initUserModel, initUserModelRelationships } from './User/User'
 import sequelize from '../utils/sequelize/init'
 
-const initModelsRelationships = (sequelize: Sequelize) => {
-  initUserModelRelationships(sequelize)
+const initModelsRelationships = () => {
+  initUserModelRelationships()
 }
 
-export const InitializeORMAndModels = () => {
+const initializeORMAndModels = () => {
   const isSequelizeConnected = async () => {
     try {
       await sequelize.authenticate()
@@ -19,7 +19,8 @@ export const InitializeORMAndModels = () => {
     }
   }
   if(!isSequelizeConnected()) return
-  initUserModel(sequelize)
-  initPlaysModel(sequelize)
-  initModelsRelationships(sequelize)
+  initUserModel()
+  initPlaysModel()
+  initModelsRelationships()
 }
+export default initializeORMAndModels 

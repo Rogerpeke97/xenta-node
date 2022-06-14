@@ -1,6 +1,7 @@
 import { Sequelize, Model, DataTypes } from 'sequelize';
+import sequelize from '../../utils/sequelize/init';
 
-export const initUserModel = (sequelize: Sequelize) => {
+export const initUserModel = () => {
   const User = sequelize.define('User', {
     user_id: {
       type: DataTypes.INTEGER,
@@ -20,7 +21,7 @@ export const initUserModel = (sequelize: Sequelize) => {
   })
 }
 
-export const initUserModelRelationships = (sequelize: Sequelize) => {
+export const initUserModelRelationships = () => {
   sequelize.models.User.hasOne(sequelize.models.Plays, { foreignKey: 'user_id' })
   // sequelize.models.User.hasOne(sequelize.models.Leaderboard, { foreignKey: 'user_id' })
 }

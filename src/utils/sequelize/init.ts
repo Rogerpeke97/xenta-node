@@ -12,4 +12,6 @@ const sequelize = new Sequelize(ServerConfig.DB_NAME, ServerConfig.DB_USER, Serv
   }
 })
 
+console.log("POOOPPPPPPPPPPPSDASDASDASDASDASDASDASDASDASDASD")
+
 export default sequelize
