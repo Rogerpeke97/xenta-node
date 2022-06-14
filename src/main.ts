@@ -8,6 +8,7 @@ import { InitializeORMAndModels } from './models/init'
 export const ExpressApp: express.Application = express()
 const server = http.createServer(ExpressApp)
 InitializeORMAndModels()
+console.log(ExpressApp)
 
 server.listen(ServerConfig.PORT, () => {
   Logger.info(`Server running on port ${ServerConfig.PORT}`)

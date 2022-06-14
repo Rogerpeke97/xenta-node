@@ -1,23 +1,13 @@
 import { Sequelize } from 'sequelize'
-import ServerConfig from '../utils/ServerConfig'
 import { initPlaysModel } from './Plays/Plays'
 import { initUserModel, initUserModelRelationships } from './User/User'
+import sequelize from '../utils/sequelize/init'
 
 const initModelsRelationships = (sequelize: Sequelize) => {
   initUserModelRelationships(sequelize)
 }
 
 export const InitializeORMAndModels = () => {
-  const sequelize = new Sequelize(ServerConfig.DB_NAME, ServerConfig.DB_USER, ServerConfig.DB_PASS, {
-    host: 'localhost',
-    dialect: 'postgres',
-    pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 10000
-    }
-  })
   const isSequelizeConnected = async () => {
     try {
       await sequelize.authenticate()
