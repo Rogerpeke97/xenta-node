@@ -8,7 +8,7 @@ const fs = require('fs')
 const path = require('path')
 const basename = path.basename(__filename)
 const isFolder = (fileDir: string) => fs.statSync(fileDir).isDirectory()
-const isValidFileAndNotBaseIndexFile = (file: string) => file.indexOf('.') !== 0 && file !== basename
+const isNotBaseIndexFile = (file: string) => file !== basename
 const isValidTsFile = (file: string) => file.slice(-3) === '.ts'
 const database: Database = {}
 const sequelize = new Sequelize(
@@ -23,7 +23,7 @@ const sequelize = new Sequelize(
   }
 })
 fs.readdirSync(__dirname).forEach((file: string) => {
-  if (!isValidFileAndNotBaseIndexFile(file)) return
+  if (!isNotBaseIndexFile(file)) return
   const fileDir = `${__dirname}/${file}`
   if (isFolder(fileDir)) {
     const filesInFolder = fs.readdirSync(`${fileDir}`)
