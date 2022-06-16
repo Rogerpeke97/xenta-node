@@ -1,7 +1,6 @@
 import { Sequelize, Model, DataTypes } from 'sequelize';
-import sequelize from '../../utils/sequelize/init';
 
-export const initPlaysModel = () => {
+module.exports = (sequelize: Sequelize) => {
   const Plays = sequelize.define('Plays', {
     user_id: DataTypes.INTEGER,
     last_played_at: DataTypes.ARRAY(DataTypes.DATE)
@@ -13,4 +12,5 @@ export const initPlaysModel = () => {
       last_played_at: [new Date(), new Date()]
     })
   })
+  return Plays
 }

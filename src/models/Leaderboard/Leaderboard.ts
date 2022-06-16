@@ -1,13 +1,12 @@
 import { Sequelize, Model, DataTypes } from 'sequelize';
 
-export const initLeaderboardModel = (sequelize: Sequelize) => {
+module.exports = (sequelize: Sequelize) => {
   const Leaderboard = sequelize.define('Leaderboard', {
     user_id: DataTypes.INTEGER,
     score: DataTypes.INTEGER,
     rank: DataTypes.INTEGER,
     played_at: DataTypes.DATE
   })
-  
   Leaderboard.sync({force: true}).then(() => {
     return Leaderboard.create({
       user_id: 1,
@@ -16,4 +15,5 @@ export const initLeaderboardModel = (sequelize: Sequelize) => {
       played_at: new Date()
     })
   })
+  return Leaderboard
 }

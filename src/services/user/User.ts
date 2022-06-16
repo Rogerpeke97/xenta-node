@@ -1,5 +1,6 @@
-import sequelize from "../../utils/sequelize/init"
+import database from "../../models"
 
 export const getAllUsers = async () => {
-  return await sequelize.models.User.findAll()
+  console.log(database)
+  return await database.sequelize.models.User.findAll()
 }

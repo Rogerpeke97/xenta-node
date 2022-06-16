@@ -1,7 +1,6 @@
 import { Sequelize, Model, DataTypes } from 'sequelize';
-import sequelize from '../../utils/sequelize/init';
 
-export const initUserModel = () => {
+module.exports = (sequelize: Sequelize) => {
   const User = sequelize.define('User', {
     user_id: {
       type: DataTypes.INTEGER,
@@ -12,16 +11,16 @@ export const initUserModel = () => {
     username: DataTypes.STRING,
     birthday: DataTypes.DATE,
   })
-  
   User.sync({force: true}).then(() => {
     return User.create({
       username: 'John',
       birthday: new Date()
     })
   })
+  return User
 }
 
-export const initUserModelRelationships = () => {
-  sequelize.models.User.hasOne(sequelize.models.Plays, { foreignKey: 'user_id' })
-  // sequelize.models.User.hasOne(sequelize.models.Leaderboard, { foreignKey: 'user_id' })
-}
+// export const initUserModelRelationships = () => {
+//   sequelize.models.User.hasOne(sequelize.models.Plays, { foreignKey: 'user_id' })
+//   // sequelize.models.User.hasOne(sequelize.models.Leaderboard, { foreignKey: 'user_id' })
+// }
