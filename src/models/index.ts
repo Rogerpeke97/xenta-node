@@ -22,33 +22,21 @@ const sequelize = new Sequelize(
     idle: 10000
   }
 })
-fs
-  .readdirSync(__dirname)
-  .filter((file: any) => {
-    console.log(file, __dirname)
-    const fileDir = `${__dirname}/${file}`
-    if (isFolder(fileDir)) {
-      const validFilesInFolder = fs.readdirSync(`${fileDir}`).filter((file: any) => 
-        isValidFileAndNotBaseIndexFile(file) && isValidTsFile(file)
-      )
-      return validFilesInFolder.length > 0
-    }
-    return isValidFileAndNotBaseIndexFile(file) && isValidTsFile(file)
-  })
-  .forEach((file: any) => {
-    const fileDir = `${__dirname}/${file}`
-    if (isFolder(fileDir)) {
-      const filesInFolder = fs.readdirSync(`${fileDir}`)
-      filesInFolder.forEach((file: any) => {
-        const model = require(path.join(`${fileDir}/${file}`))(sequelize)
-        database[model.name] = model
-      })
-      return
-    }
-    const model = require(path.join(__dirname, file))(sequelize)
-    database[model.name] = model
-    console.log(database)
-  })
+fs.readdirSync(__dirname).forEach((file: string) => {
+  if (!isValidFileAndNotBaseIndexFile(file)) return
+  const fileDir = `${__dirname}/${file}`
+  if (isFolder(fileDir)) {
+    const filesInFolder = fs.readdirSync(`${fileDir}`)
+    filesInFolder.forEach((file: string) => {
+      if (!isValidTsFile(file)) return
+      const model = require(path.join(`${fileDir}/${file}`))(sequelize)
+      database[model.name] = model
+    })
+    return
+  }
+  const model = require(path.join(__dirname, file))(sequelize)
+  database[model.name] = model
+})
 Object.keys(database).forEach(modelName => {
   if (database[modelName]?.associate) {
     database[modelName]?.associate(database)
