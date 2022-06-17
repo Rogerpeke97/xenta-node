@@ -13,14 +13,14 @@ const isValidTsFile = (file: string) => file.slice(-3) === '.ts'
 const database: Database = {}
 const sequelize = new Sequelize(
   ServerConfig.DB_NAME, ServerConfig.DB_USER, ServerConfig.DB_PASS, {
-  host: 'localhost',
-  dialect: 'postgres',
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  }
+    host: 'localhost',
+    dialect: 'postgres',
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
 })
 fs.readdirSync(__dirname).forEach((file: string) => {
   if (!isNotBaseIndexFile(file)) return
@@ -46,24 +46,3 @@ database.sequelize = sequelize
 module.exports = database
 
 export default database
-// const initModelsRelationships = () => {
-//   initUserModelRelationships()
-// }
-
-// const initializeORMAndModels = () => {
-//   const isSequelizeConnected = async () => {
-//     try {
-//       await sequelize.authenticate()
-//       console.log('Connection has been established successfully.')
-//       return true
-//     } catch (error) {
-//       console.error('Unable to connect to the database:', error)
-//       return false
-//     }
-//   }
-//   if(!isSequelizeConnected()) return
-//   initUserModel()
-//   initPlaysModel()
-//   initModelsRelationships()
-// }
-// export default initializeORMAndModels 
