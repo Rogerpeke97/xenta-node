@@ -10,12 +10,6 @@ module.exports = async (sequelize: Sequelize) => {
       played_at: DataTypes.DATE
     })
     await Leaderboard.sync({ force: true })
-    await Leaderboard.create({
-      user_id: 1,
-      score: 200,
-      rank: 1,
-      played_at: new Date()
-    })
     return Leaderboard
   }
 }

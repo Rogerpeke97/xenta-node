@@ -12,12 +12,10 @@ module.exports = async (sequelize: Sequelize) => {
       },
       username: DataTypes.STRING,
       birthday: DataTypes.DATE,
+      email: DataTypes.STRING,
+      password: DataTypes.STRING
     })
     await User.sync({ force: true })
-    await User.create({
-      username: 'John',
-      birthday: new Date()
-    })
     return User
   } else {
     userModel.hasOne(sequelize.models?.Plays, { foreignKey: 'user_id' })

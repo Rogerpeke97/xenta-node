@@ -1,6 +1,6 @@
 import express from 'express'
 import { ExpressApp } from '../../main'
-import { getAllUsers } from '../../services/user/User'
+import { getAllUsers } from '../../repositories/user/User'
 import Logger from '../../utils/Logger'
 
 const authController = async(app: express.Application) => {

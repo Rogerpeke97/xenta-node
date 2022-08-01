@@ -8,10 +8,6 @@ module.exports = async (sequelize: Sequelize) => {
       last_played_at: DataTypes.ARRAY(DataTypes.DATE)
     })
     await Plays.sync({ force: true })
-    await Plays.create({
-      user_id: 1,
-      last_played_at: [new Date(), new Date()]
-    })
     return Plays
   }
 }
