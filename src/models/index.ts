@@ -27,13 +27,13 @@ const createModelsAndRelationships = async(action: string) => {
   const filesAndFolders = fs.readdirSync(__dirname)
   for(let j = 0; j < filesAndFolders.length; j++){
     const fileOrFolder = filesAndFolders[j]
-    if (!isNotBaseIndexFile(fileOrFolder)) return
+    if (!isNotBaseIndexFile(fileOrFolder)) continue
     const fileDir = `${__dirname}/${fileOrFolder}`
     if (isFolder(fileDir)) {
       const filesInFolder = fs.readdirSync(`${fileDir}`)
       for(let i = 0; i < filesInFolder.length; i++){
         const file = filesInFolder[i]
-        if (!isValidTsFile(file)) return
+        if (!isValidTsFile(file)) continue
         if(action === 'initModels'){
           const model = await require(path.join(`${fileDir}/${file}`))(sequelize)
           database[model.name] = model

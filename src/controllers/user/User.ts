@@ -1,5 +1,4 @@
 import express, { Router } from 'express'
-import { ExpressApp } from '../../main'
 import { createUser, getAllUsers, getUser } from '../../services/user/User'
 interface UserParams {
   email: string,
@@ -28,11 +27,9 @@ const posts = (router: Router) => {
   })
 }
 
-const userController = async(app: express.Application) => {
+module.exports = async(app: express.Application) => {
   const userController = express.Router()
   gets(userController)
   posts(userController)
-  ExpressApp.use('/users', userController)
+  app.use('/users', userController)
 }
-
-export default userController

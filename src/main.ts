@@ -1,14 +1,11 @@
-import express from 'express'
-import * as bodyParser from 'body-parser'
 import * as http from 'http'
+import expressApp from './controllers'
 import Logger from './utils/Logger'
 import ServerConfig from './utils/ServerConfig'
-import initializeControllers from './controllers/init'
+require('./models/index')
+require('./controllers/index')
 
-export const ExpressApp: express.Application = express()
-const server = http.createServer(ExpressApp)
-initializeControllers(ExpressApp)
-
+const server = http.createServer(expressApp)
 server.listen(ServerConfig.PORT, () => {
   Logger.info(`Server running on port ${ServerConfig.PORT}`)
 })
