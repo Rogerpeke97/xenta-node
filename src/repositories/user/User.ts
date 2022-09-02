@@ -19,7 +19,8 @@ export const insertUser = async (email: string, username: string, birthday: Date
   const userCreated = await User.create({
     username,
     email,
-    birthday
+    birthday,
+    password
   })
   return userCreated.dataValues
 }

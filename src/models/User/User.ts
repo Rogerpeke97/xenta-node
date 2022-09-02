@@ -10,10 +10,24 @@ module.exports = async (sequelize: Sequelize) => {
         autoIncrement: true,
         allowNull: false
       },
-      username: DataTypes.STRING,
-      birthday: DataTypes.DATE,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING
+      username: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false
+      },
+      birthday: {
+        type: DataTypes.DATE,
+        allowNull: false
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false
+      }
     })
     await User.sync({ force: true })
     return User

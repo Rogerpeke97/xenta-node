@@ -1,3 +1,5 @@
+import { insertLeaderboard } from '../../repositories/leaderboard/Leaderboard'
+import { insertPlay } from '../../repositories/play/Play'
 import { insertUser, selectAllUsers, selectUser } from '../../repositories/user/User'
 import Logger from '../../utils/Logger'
 
